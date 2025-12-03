@@ -3,12 +3,47 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessadorAssincrono.API", "src\ProcessadorAssincrono.API\ProcessadorAssincrono.API.csproj", "{5EA9D302-0F85-4F0F-AFF7-5235E8EAF59F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessadorAssincrono.Application", "src\ProcessadorAssincrono.Application\ProcessadorAssincrono.Application.csproj", "{48D65479-A4ED-497B-BA25-D8C13A74C546}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessadorAssincrono.Infrastructure", "src\ProcessadorAssincrono.Infrastructure\ProcessadorAssincrono.Infrastructure.csproj", "{13F31657-323C-48B8-9435-DAD205A73CB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessadorAssincrono.Domain", "src\ProcessadorAssincrono.Domain\ProcessadorAssincrono.Domain.csproj", "{9453F10F-F8B1-48DF-8DF3-24E2089D7494}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessadorAssincrono.Tests", "tests\ProcessadorAssincrono.Tests\ProcessadorAssincrono.Tests.csproj", "{53CF928E-DF15-441A-BA6C-6B012DBEDA94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EA9D302-0F85-4F0F-AFF7-5235E8EAF59F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EA9D302-0F85-4F0F-AFF7-5235E8EAF59F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EA9D302-0F85-4F0F-AFF7-5235E8EAF59F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EA9D302-0F85-4F0F-AFF7-5235E8EAF59F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48D65479-A4ED-497B-BA25-D8C13A74C546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48D65479-A4ED-497B-BA25-D8C13A74C546}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48D65479-A4ED-497B-BA25-D8C13A74C546}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48D65479-A4ED-497B-BA25-D8C13A74C546}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13F31657-323C-48B8-9435-DAD205A73CB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13F31657-323C-48B8-9435-DAD205A73CB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13F31657-323C-48B8-9435-DAD205A73CB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13F31657-323C-48B8-9435-DAD205A73CB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9453F10F-F8B1-48DF-8DF3-24E2089D7494}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9453F10F-F8B1-48DF-8DF3-24E2089D7494}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9453F10F-F8B1-48DF-8DF3-24E2089D7494}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9453F10F-F8B1-48DF-8DF3-24E2089D7494}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53CF928E-DF15-441A-BA6C-6B012DBEDA94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53CF928E-DF15-441A-BA6C-6B012DBEDA94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53CF928E-DF15-441A-BA6C-6B012DBEDA94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53CF928E-DF15-441A-BA6C-6B012DBEDA94}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1B37CEED-008E-4019-AEA0-85740A40918C}
 	EndGlobalSection
 EndGlobal
