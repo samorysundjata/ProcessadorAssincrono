@@ -1,6 +1,4 @@
 ﻿namespace ProcessadorAssincrono.Domain.DTOs
 {
-    internal class AprovacaoRequest
-    {
-    }
+    public record AprovacaoRequest(string Pep, string ComentariosAdicionais, DateTime DataAprovacao);
 }

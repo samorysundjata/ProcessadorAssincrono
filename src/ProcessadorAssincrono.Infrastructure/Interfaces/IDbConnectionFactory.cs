@@ -1,6 +1,9 @@
-﻿namespace ProcessadorAssincrono.Infrastructure.Interfaces
+﻿using System.Data;
+
+namespace ProcessadorAssincrono.Infrastructure.Interfaces
 {
-    internal interface IDbConnectionFactory
+    public interface IDbConnectionFactory
     {
+        IDbConnection CreateConnection();
     }
 }

@@ -15,4 +15,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProcessadorAssincrono.Application\ProcessadorAssincrono.Application.csproj" />
+    <ProjectReference Include="..\ProcessadorAssincrono.Infrastructure\ProcessadorAssincrono.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
