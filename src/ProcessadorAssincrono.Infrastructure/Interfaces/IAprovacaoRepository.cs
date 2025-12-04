@@ -1,6 +1,8 @@
-﻿namespace ProcessadorAssincrono.Infrastructure.Interfaces
+﻿using ProcessadorAssincrono.Domain.Entities;
+
+namespace ProcessadorAssincrono.Infrastructure.Interfaces
 {
-    internal interface IAprovacaoRepository
+    public interface IAprovacaoRepository : IRepository<Aprovacao>
     {
     }
 }

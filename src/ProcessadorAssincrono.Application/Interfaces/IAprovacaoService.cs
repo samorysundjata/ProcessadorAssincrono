@@ -1,6 +1,11 @@
-﻿namespace ProcessadorAssincrono.Application.Interfaces
+﻿using ProcessadorAssincrono.Domain.Entities;
+
+namespace ProcessadorAssincrono.Application.Interfaces
 {
-    internal interface IAprovacaoService
+    public interface IAprovacaoService
     {
+        Task AprovarAsync(Guid id, string pep, string comentariosAdicionais, DateTime dataAprovacao);
+
+        Task InserirAsync(Aprovacao aprovacao);
     }
 }

@@ -1,6 +1,9 @@
 ﻿namespace ProcessadorAssincrono.Infrastructure.Interfaces
 {
-    internal interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
+        IAprovacaoRepository Aprovacoes { get; }
+        Task CommitAsync();
+        Task RollbackAsync();
     }
 }
