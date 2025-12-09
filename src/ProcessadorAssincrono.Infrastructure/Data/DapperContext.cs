@@ -12,8 +12,11 @@ namespace ProcessadorAssincrono.Infrastructure.Data
 
         public DapperContext(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection")
-                ?? throw new InvalidOperationException("Connection string not configured.");
+            var conn = configuration.GetConnectionString("DefaultConnection");
+            if (string.IsNullOrWhiteSpace(conn))
+                throw new InvalidOperationException("Connection string not configured.");
+
+            _connectionString = conn;
         }
 
         public IDbConnection CreateConnection() =>
