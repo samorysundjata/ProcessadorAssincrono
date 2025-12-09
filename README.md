@@ -29,7 +29,7 @@ ProcessadorAssincrono/
 ├── ProcessadorAssincrono.Application → Interfaces e contratos
 ├── ProcessadorAssincrono.Domain → Entidades de negócio
 ├── ProcessadorAssincrono.Infrastructure→ Implementações (Dapper, BackgroundService)
-├── ProcessadorAssincrono.Tests → Testes unitários com xUnit e Moq
+├── ProcessadorAssincrono.Tests → Testes unitários com xUnit, Shoudly e Moq
 ```
 
 ---
