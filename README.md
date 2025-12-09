@@ -16,6 +16,7 @@ Este repositório implementa uma aplicação .NET 8 baseada em **Clean Architect
 [![xUnit](https://img.shields.io/badge/xUnit-Tests-512BD4?style=flat-square&logo=xunit&logoColor=white)](https://xunit.net/)
 [![Moq](https://img.shields.io/badge/Moq-Mocking-9B4F96?style=flat-square)](https://github.com/moq)
 [![Shouldly](https://img.shields.io/badge/Shouldly-Assertions-8A2BE2?style=flat-square)](https://shouldly.readthedocs.io/en/latest/)
+![Build Status](https://github.com/samorysundjata/ProcessadorAssincrono/actions/workflows/dotnet.yml/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](./LICENSE)
 
 ---
