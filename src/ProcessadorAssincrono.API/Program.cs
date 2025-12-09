@@ -76,6 +76,4 @@ app.MapPut("/api/diarias/{id:guid}/aprovar", async (
     });
 });
 
-?
-
 app.Run();
