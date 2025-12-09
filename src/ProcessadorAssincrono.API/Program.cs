@@ -47,16 +47,16 @@ app.MapPut("/api/diarias/{id:guid}/inserir", async (
     {
         Id = id,
         Pep = "123456",
-        ComentariosAdicionais = "Comentário de teste",
+        ComentariosAdicionais = "Comentï¿½rio de teste",
         DataAprovacao = DateTime.UtcNow
     };
 
     await aprovacaoService.InserirAsync(aprovacao);
-    logger.LogInformation("Diária {Id} inserida com sucesso.", id);
+    logger.LogInformation("Diï¿½ria {Id} inserida com sucesso.", id);
 
     return Results.Created($"/api/diarias/{id}", new
     {
-        mensagem = $"Diária {id} inserida com sucesso."
+        mensagem = $"Diï¿½ria {id} inserida com sucesso."
     });
 });
 
@@ -68,12 +68,14 @@ app.MapPut("/api/diarias/{id:guid}/aprovar", async (
     CancellationToken cancellationToken) =>
 {
     await queue.EnfileirarAsync(id, request.Pep, request.ComentariosAdicionais, DateTime.UtcNow);
-    logger.LogInformation("Diária {Id} enfileirada para aprovação.", id);
+    logger.LogInformation("Diï¿½ria {Id} enfileirada para aprovaï¿½ï¿½o.", id);
 
     return Results.Accepted($"/api/diarias/{id}/aprovar", new
     {
-        mensagem = $"Diária {id} enfileirada para aprovação."
+        mensagem = $"Diï¿½ria {id} enfileirada para aprovaï¿½ï¿½o."
     });
 });
+
+?
 
 app.Run();
