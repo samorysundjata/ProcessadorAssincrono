@@ -11,7 +11,9 @@ namespace ProcessadorAssincrono.Tests.Infrastructure
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            mockConfig.Setup(c => c["ConnectionStrings:DefaultConnection"]).Returns((string?)null);
+            var mockSection = new Mock<IConfigurationSection>();
+            mockSection.Setup(s => s["DefaultConnection"]).Returns((string?)null);
+            mockConfig.Setup(c => c.GetSection("ConnectionStrings")).Returns(mockSection.Object);           
 
             // Act & Assert
             var exception = Assert.Throws<InvalidOperationException>(() => new DapperContext(mockConfig.Object));
@@ -23,7 +25,9 @@ namespace ProcessadorAssincrono.Tests.Infrastructure
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            mockConfig.Setup(c => c["ConnectionStrings:DefaultConnection"]).Returns(string.Empty);
+            var mockSection = new Mock<IConfigurationSection>();
+            mockSection.Setup(s => s["DefaultConnection"]).Returns(string.Empty);
+            mockConfig.Setup(c => c.GetSection("ConnectionStrings")).Returns(mockSection.Object);
 
             // Act & Assert
             var exception = Assert.Throws<InvalidOperationException>(() => new DapperContext(mockConfig.Object));
