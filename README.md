@@ -78,11 +78,20 @@ SA_PASSWORD: Defina uma senha forte para o usuário sa. (Pode utilizar o SenhaFo
 
 ### Abra com o SQL Server Management Studio e crie o banco `Processador`
 
-```bash
+```sql
 CREATE DATABASE Processador;
 ```
 
----
+### Crie a tabela Aprovacoes
+
+```sql
+CREATE TABLE Aprovacoes (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    Pep NVARCHAR(100) NOT NULL,
+    ComentariosAdicionais NVARCHAR(MAX) NULL,
+    DataAprovacao DATETIME2 NOT NULL
+);
+```
 
 ### Licença
 
