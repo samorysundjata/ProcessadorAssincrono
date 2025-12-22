@@ -22,9 +22,9 @@ namespace ProcessadorAssincrono.Infrastructure.BackgroundServices
             _logger = logger;
         }
 
-        public async Task EnfileirarAsync(Guid id, string pep, string comentariosAdicionais, DateTime dataAprovacao)
+        public async Task EnfileirarAsync(Guid id, string projeto, string comentariosAdicionais, DateTime dataAprovacao)
         {
-            var mensagem = new Aprovacao { Id = id, Pep = pep, ComentariosAdicionais = comentariosAdicionais, DataAprovacao = dataAprovacao };
+            var mensagem = new Aprovacao { Id = id, Projeto = projeto, ComentariosAdicionais = comentariosAdicionais, DataAprovacao = dataAprovacao };
             await _channel.Writer.WriteAsync(mensagem);
             _logger.LogInformation($"Enfileirado: {id}");
         }
@@ -48,7 +48,7 @@ namespace ProcessadorAssincrono.Infrastructure.BackgroundServices
                         using var scope = _serviceProvider.CreateScope();
                         var service = scope.ServiceProvider.GetRequiredService<IAprovacaoService>();
 
-                        await service.AprovarAsync(mensagem.Id, mensagem.Pep, mensagem.ComentariosAdicionais, mensagem.DataAprovacao);
+                        await service.AprovarAsync(mensagem.Id, mensagem.Projeto, mensagem.ComentariosAdicionais, mensagem.DataAprovacao);
                         _logger.LogInformation($"Processado a mensagem: {mensagem.Id}");
                     }
                     catch (Exception ex)
