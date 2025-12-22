@@ -7,9 +7,9 @@ namespace ProcessadorAssincrono.Application.Validators
     {
         public LoteAprovacaoRequestValidator()
         {
-            RuleFor(x => x.Solicitacoes)
-                .NotNull().WithMessage("A lista de solicitações não pode ser nula.")
-                .NotEmpty().WithMessage("É necessário informar pelo menos uma solicitação.")
+            RuleFor(x => x.Aprovacoes)
+                .NotNull().WithMessage("A lista de aprovações não pode ser nula.")
+                .NotEmpty().WithMessage("É necessário informar pelo menos uma aprovação.")
                 .Must(list => list.All(id => id != Guid.Empty))
                 .WithMessage("Todos os GUIDs devem ser válidos (não vazios).")
                 .Must(list => list.Distinct().Count() == list.Count)

@@ -46,12 +46,12 @@ namespace ProcessadorAssincrono.Tests.Infrastructure
         {
             // Arrange
             var id = Guid.NewGuid();
-            var pep = "PEP123";
+            var projeto = "Projeto123";
             var comentarios = "Teste";
             var data = DateTime.Now;
 
             // Act
-            await _service.EnfileirarAsync(id, pep, comentarios, data);
+            await _service.EnfileirarAsync(id, projeto, comentarios, data);
 
             // Assert
             Assert.True(await _channel.Reader.WaitToReadAsync());
@@ -68,12 +68,11 @@ namespace ProcessadorAssincrono.Tests.Infrastructure
         {
             // Arrange
             var id = Guid.NewGuid();
-            var pep = "PEP123";
+            var projeto = "Projeto123";
             var comentarios = "Teste";
             var data = DateTime.Now;
 
-            await _channel.Writer.WriteAsync(new Aprovacao { Id = id, Pep = pep, ComentariosAdicionais = comentarios, DataAprovacao = data });
-
+            await _channel.Writer.WriteAsync(new Aprovacao { Id = id, Projeto = projeto, ComentariosAdicionais = comentarios, DataAprovacao = data });
             var cts = new CancellationTokenSource();
             cts.CancelAfter(TimeSpan.FromSeconds(2)); // Para não travar o teste
 
@@ -82,7 +81,7 @@ namespace ProcessadorAssincrono.Tests.Infrastructure
             await Task.Delay(500); // Aguarda processamento
 
             // Assert
-            _aprovacaoServiceMock.Verify(s => s.AprovarAsync(id, pep, comentarios, data), Times.Once);
+            _aprovacaoServiceMock.Verify(s => s.AprovarAsync(id, projeto, comentarios, data), Times.Once);
             _loggerMock.Verify(l => l.Log(
                 It.Is<LogLevel>(lvl => lvl == LogLevel.Information),
                 It.IsAny<EventId>(),

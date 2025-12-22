@@ -31,7 +31,7 @@ namespace ProcessadorAssincrono.Infrastructure.Persistence
             return _connection.ExecuteAsync(sql, new
             {
                 entity.Id,
-                entity.Pep,
+                entity.Projeto,
                 entity.ComentariosAdicionais,
                 entity.DataAprovacao
             }, _transaction);

@@ -58,9 +58,15 @@ Realiza a atualização da entidade `Aprovacao` no banco SQL Server, marcando co
 
 ### Minimal API
 
-Expõe o endpoint `api/diarias/{'guid'}/aprovar` para enfileirar múltiplas requisições.
+Expõe o endpoint `api/solicitacoes/{'guid'}/aprovar` para enfileirar múltiplas requisições.
 
 ---
+
+## Arquitetura
+
+### Contexto
+
+![Diagrama de Contexto](./out/docs/Context/Context.png)
 
 ## Criação e configuração do SQL Server 20222
 

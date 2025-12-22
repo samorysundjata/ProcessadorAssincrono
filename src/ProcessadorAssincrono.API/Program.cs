@@ -38,7 +38,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapPut("/api/diarias/{id:guid}/inserir", async (
+app.MapPut("/api/solicitacoes/{id:guid}/inserir", async (
     IAprovacaoService aprovacaoService,
     Guid id,
     ILogger<Program> logger,
@@ -47,33 +47,33 @@ app.MapPut("/api/diarias/{id:guid}/inserir", async (
     var aprovacao = new Aprovacao
     {
         Id = id,
-        Pep = "123456",
+        Projeto = "123456",
         ComentariosAdicionais = "Comentário de teste",
         DataAprovacao = DateTime.UtcNow
     };
 
     await aprovacaoService.InserirAsync(aprovacao);
-    logger.LogInformation("Diária {Id} inserida com sucesso.", id);
+    logger.LogInformation("Solicitação {Id} inserida com sucesso.", id);
 
-    return Results.Created($"/api/diarias/{id}", new
+    return Results.Created($"/api/solicitacoes/{id}", new
     {
-        mensagem = $"Diária {id} inserida com sucesso."
+        mensagem = $"Solicitação {id} inserida com sucesso."
     });
 });
 
-app.MapPut("/api/diarias/{id:guid}/aprovar", async (
+app.MapPut("/api/solicitacoes/{id:guid}/aprovar", async (
     Guid id,
     AprovacaoRequest request,
     IProcessadorQueue queue,
     ILogger<Program> logger,
     CancellationToken cancellationToken) =>
 {
-    await queue.EnfileirarAsync(id, request.Pep, request.ComentariosAdicionais, DateTime.UtcNow);
-    logger.LogInformation("Diária {Id} enfileirada para aprovação.", id);
+    await queue.EnfileirarAsync(id, request.Projeto, request.ComentariosAdicionais, DateTime.UtcNow);
+    logger.LogInformation("Solicitação {Id} enfileirada para aprovação.", id);
 
-    return Results.Accepted($"/api/diarias/{id}/aprovar", new
+    return Results.Accepted($"/api/solicitacoes/{id}/aprovar", new
     {
-        mensagem = $"Diária {id} enfileirada para aprovação."
+        mensagem = $"Solicitação {id} enfileirada para aprovação."
     });
 });
 
@@ -93,15 +93,15 @@ app.MapPost("/aprovar-em-lote", async (
         });
     }
 
-    foreach (var id in request.Solicitacoes)
+    foreach (var id in request.Aprovacoes)
     {
-        await queue.EnfileirarAsync(id, "PEP_PADRAO", "Aprovação em lote", DateTime.UtcNow);
-        logger.LogInformation("Diária {Id} enfileirada para aprovação em lote.", id);
+        await queue.EnfileirarAsync(id, "Projeto_PADRAO", "Aprovação em lote", DateTime.UtcNow);
+        logger.LogInformation("Solicitação {Id} enfileirada para aprovação em lote.", id);
     }
 
     return Results.Accepted("/aprovar-em-lote", new
     {
-        mensagem = $"{request.Solicitacoes.Count} solicitações enfileiradas para aprovação."
+        mensagem = $"{request.Aprovacoes.Count} solicitações enfileiradas para aprovação."
     });
 });
 

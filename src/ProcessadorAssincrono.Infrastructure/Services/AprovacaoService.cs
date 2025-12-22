@@ -16,11 +16,11 @@ namespace ProcessadorAssincrono.Infrastructure.Services
             _logger = logger;
         }
 
-        public async Task AprovarAsync(Guid id, string pep, string comentariosAdicionais, DateTime dataAprovacao)
+        public async Task AprovarAsync(Guid id, string projeto, string comentariosAdicionais, DateTime dataAprovacao)
         {
             try
             {
-                var aprovacao = new Aprovacao { Id = id, Pep = pep, ComentariosAdicionais = comentariosAdicionais, DataAprovacao = dataAprovacao };
+                var aprovacao = new Aprovacao { Id = id, Projeto = projeto, ComentariosAdicionais = comentariosAdicionais, DataAprovacao = dataAprovacao };
 
                 await _uow.Aprovacoes.InserirAsync(aprovacao);
                 await _uow.CommitAsync();

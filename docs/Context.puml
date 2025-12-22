@@ -1,0 +1,15 @@
+@startuml Context
+' Diagrama de Contexto - Processador de Aprovações
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(user, "Usuário", "Usuário que submete  aprovações")
+
+System_Boundary(s1, "Processador de Aprovações") {
+    System(system, "Processador de Aprovações", "Aplicação responsável por orquestrar e executar processamento de aprovações")
+}
+
+Rel(user, system, "Submete aprovações / Monitora status", "HTTPS / Rest")
+
+@enduml

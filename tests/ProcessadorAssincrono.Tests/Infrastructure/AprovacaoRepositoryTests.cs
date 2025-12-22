@@ -25,7 +25,7 @@ namespace ProcessadorAssincrono.Tests.Infrastructure
         public async Task ObterPorId_ShouldReturnEntity_WhenMocked()
         {
             // Arrange
-            var expected = new Aprovacao { Id = Guid.NewGuid(), Pep = "PEP123", ComentariosAdicionais = "Teste", DataAprovacao = DateTime.Now };
+            var expected = new Aprovacao { Id = Guid.NewGuid(), Projeto = "Projeto123", ComentariosAdicionais = "Teste", DataAprovacao = DateTime.Now };
             var mockConnection = new Mock<IDbConnection>();
             var mockLogger = new Mock<ILogger<AprovacaoRepository>>();
 
