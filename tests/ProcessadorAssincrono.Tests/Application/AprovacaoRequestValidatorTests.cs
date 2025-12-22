@@ -27,8 +27,8 @@ namespace ProcessadorAssincrono.Tests.Application
             var result = _validator.TestValidate(request);
 
             // Assert
-            result.ShouldHaveValidationErrorFor(x => x.Pep)
-                  .WithErrorMessage("O campo PEP é obrigatório.");
+            result.ShouldHaveValidationErrorFor(x => x.Projeto)
+                  .WithErrorMessage("O campo Projeto é obrigatório.");
         }
 
         [Fact]

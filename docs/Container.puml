@@ -1,0 +1,31 @@
+@startuml
+' C4 Container diagram template para ProcessadorAssincrono
+' Substitua os containers pelos artefatos reais que estiverem em /src e /tests
+!define C4P https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master
+!includeurl C4P/C4_Context.puml
+!includeurl C4P/C4_Container.puml
+
+' Apenas um usuário externo: o aprovador
+Person(aprovador, "Aprovador", "Usuário que aprova processamentos")
+
+' Exemplo de containers — troque pelos componentes reais de src/
+Container(web_app, "Web UI (ex: frontend)", "React / static", "Interface usada pelo aprovador para ver e aprovar itens")
+' Container(api, "API Server", "FastAPI / ASP.NET / Express", "Expõe endpoints para listar, aprovar e consultar status")
+' Container(worker, "Processador Assíncrono", "Worker / Background Service", "Executa tarefas assíncronas de processamento")
+' Container(db, "Banco de Dados", "Postgres / SQLite", "Armazena domínio, filas e estado dos processamentos")
+' Container(broker, "Message Broker", "RabbitMQ / Redis", "Mediador de filas entre API e worker")
+
+' Relações conforme diagrama de contexto (somente um ator externo)
+Rel(aprovador, web_app, "Usa / acessa para aprovar itens")
+' Rel(aprovador, api, "Pode usar API para aprovar (CLI/integração)")
+' Rel(web_app, api, "Chama APIs (REST/HTTP)")
+' Rel(api, db, "Lê / grava dados")
+' Rel(api, broker, "Enfileira pedidos de processamento")
+' Rel(worker, broker, "Consome mensagens")
+' Rel(worker, db, "Atualiza estado / grava resultados")
+
+' Comentários: substitua os containers acima com o que for identificado em /src e /tests.
+' Se houver testes de integração ou unitários que representem componentes importantes,
+' adicione-os como boundary/test container (opcional) ou remova se não fizer parte do deployment.
+
+@enduml

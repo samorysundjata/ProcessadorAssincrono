@@ -33,7 +33,7 @@ namespace ProcessadorAssincrono.Tests.Application
             var id = Guid.NewGuid();
 
             // Act
-            await service.AprovarAsync(id, "PEP123", "Teste", DateTime.Now);
+            await service.AprovarAsync(id, "Projeto123", "Teste", DateTime.Now);
 
             // Assert
             mockRepo.Verify(r => r.InserirAsync(It.Is<Aprovacao>(a => a.Id == id)), Times.Once);
@@ -55,7 +55,7 @@ namespace ProcessadorAssincrono.Tests.Application
             var service = new AprovacaoService(mockUow.Object, mockLogger.Object);
 
             // Act & Assert
-            var ex = await Should.ThrowAsync<Exception>(() => service.AprovarAsync(Guid.NewGuid(), "PEP123", "Teste", DateTime.Now));
+            var ex = await Should.ThrowAsync<Exception>(() => service.AprovarAsync(Guid.NewGuid(), "Projeto123", "Teste", DateTime.Now));
             ex.Message.ShouldContain("Erro simulado");
             mockUow.Verify(u => u.RollbackAsync(), Times.Once);
             VerifyLog(mockLogger, LogLevel.Error, "Erro ao aprovar");
@@ -87,7 +87,7 @@ namespace ProcessadorAssincrono.Tests.Application
             var mockLogger = new Mock<ILogger<AprovacaoService>>();
 
             var service = new AprovacaoService(mockUow.Object, mockLogger.Object);
-            var aprovacao = new Aprovacao { Id = Guid.NewGuid(), Pep = "PEP123" };
+            var aprovacao = new Aprovacao { Id = Guid.NewGuid(), Projeto = "Projeto123" };
 
             // Act
             await service.InserirAsync(aprovacao);
@@ -110,7 +110,7 @@ namespace ProcessadorAssincrono.Tests.Application
             var mockLogger = new Mock<ILogger<AprovacaoService>>();
 
             var service = new AprovacaoService(mockUow.Object, mockLogger.Object);
-            var aprovacao = new Aprovacao { Id = Guid.NewGuid(), Pep = "PEP123" };
+            var aprovacao = new Aprovacao { Id = Guid.NewGuid(), Projeto = "Projeto123" };
 
             // Act & Assert
             var ex = await Should.ThrowAsync<Exception>(() => service.InserirAsync(aprovacao));
