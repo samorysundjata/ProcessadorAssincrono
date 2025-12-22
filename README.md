@@ -93,7 +93,7 @@ CREATE DATABASE Processador;
 ```sql
 CREATE TABLE Aprovacoes (
     Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    Pep NVARCHAR(100) NOT NULL,
+    Projeto NVARCHAR(100) NOT NULL,
     ComentariosAdicionais NVARCHAR(MAX) NULL,
     DataAprovacao DATETIME2 NOT NULL
 );
