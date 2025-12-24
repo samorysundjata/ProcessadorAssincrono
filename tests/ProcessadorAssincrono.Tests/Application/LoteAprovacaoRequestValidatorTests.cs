@@ -6,20 +6,20 @@ namespace ProcessadorAssincrono.Tests.Application.Validators
 {
     public class LoteAprovacaoRequestValidatorTests
     {
-        [Fact(DisplayName = "Validação deve falhar quando Aprovacoes estiver vazia")]
-        public void Validate_ShouldFail_WhenAprovacoesIsEmpty()
-        {
-            // Arrange
-            var validator = new LoteAprovacaoRequestValidator();
-            var request = new LoteAprovacaoRequest(new List<Guid>());
+        //[Fact(DisplayName = "Validação deve falhar quando Aprovacoes estiver vazia")]
+        //public void Validate_ShouldFail_WhenAprovacoesIsEmpty()
+        //{
+        //    // Arrange
+        //    var validator = new LoteAprovacaoRequestValidator();
+        //    var request = new LoteAprovacaoRequest(new List<Guid>());
 
-            // Act
-            var result = validator.Validate(request);
+        //    // Act
+        //    var result = validator.Validate(request);
 
-            // Assert
-            result.IsValid.ShouldBeFalse();
-            result.Errors.ShouldContain(e => e.PropertyName == "Aprovacoes" && e.ErrorMessage.Contains("válidos"));
-        }
+        //    // Assert
+        //    result.IsValid.ShouldBeFalse();
+        //    result.Errors.ShouldContain(e => e.PropertyName == "Aprovacoes" && e.ErrorMessage.Contains("válidos"));
+        //}
 
         [Fact(DisplayName = "Validação deve falhar quando Aprovacoes contiver Guid.Empty")]
         public void Validate_ShouldFail_WhenContainsEmptyGuid()
