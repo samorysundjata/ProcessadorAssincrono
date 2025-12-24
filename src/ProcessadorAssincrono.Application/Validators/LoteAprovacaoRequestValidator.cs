@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
-using FluentValidation;
+﻿using FluentValidation;
 using ProcessadorAssincrono.Domain.DTOs;
-            
+
 namespace ProcessadorAssincrono.Application.Validators
 {
     public class LoteAprovacaoRequestValidator : AbstractValidator<LoteAprovacaoRequest>

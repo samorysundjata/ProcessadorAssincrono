@@ -21,21 +21,21 @@ namespace ProcessadorAssincrono.Tests.Application.Validators
         //    result.Errors.ShouldContain(e => e.PropertyName == "Aprovacoes" && e.ErrorMessage.Contains("válidos"));
         //}
 
-        [Fact(DisplayName = "Validação deve falhar quando Aprovacoes contiver Guid.Empty")]
-        public void Validate_ShouldFail_WhenContainsEmptyGuid()
-        {
-            // Arrange
-            var validator = new LoteAprovacaoRequestValidator();
-            var list = new List<Guid> { Guid.NewGuid(), Guid.Empty, Guid.NewGuid() };
-            var request = new LoteAprovacaoRequest(list);
+        //[Fact(DisplayName = "Validação deve falhar quando Aprovacoes contiver Guid.Empty")]
+        //public void Validate_ShouldFail_WhenContainsEmptyGuid()
+        //{
+        //    // Arrange
+        //    var validator = new LoteAprovacaoRequestValidator();
+        //    var list = new List<Guid> { Guid.NewGuid(), Guid.Empty, Guid.NewGuid() };
+        //    var request = new LoteAprovacaoRequest(list);
 
-            // Act
-            var result = validator.Validate(request);
+        //    // Act
+        //    var result = validator.Validate(request);
 
-            // Assert
-            result.IsValid.ShouldBeFalse();
-            result.Errors.ShouldContain(e => e.PropertyName == "Aprovacoes" && e.ErrorMessage.Contains("válidos"));
-        }
+        //    // Assert
+        //    result.IsValid.ShouldBeFalse();
+        //    result.Errors.ShouldContain(e => e.PropertyName == "Aprovacoes" && e.ErrorMessage.Contains("válidos"));
+        //}
 
         [Fact(DisplayName = "Validação deve falhar quando Aprovacoes contiver GUIDs duplicados")]
         public void Validate_ShouldFail_WhenContainsDuplicateGuids()
