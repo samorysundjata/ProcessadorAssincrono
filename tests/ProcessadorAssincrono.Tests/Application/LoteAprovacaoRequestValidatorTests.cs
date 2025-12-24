@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using ProcessadorAssincrono.Application.Validators;
 using ProcessadorAssincrono.Domain.DTOs;
 using Shouldly;
-using Xunit;
 
 namespace ProcessadorAssincrono.Tests.Application.Validators
 {
