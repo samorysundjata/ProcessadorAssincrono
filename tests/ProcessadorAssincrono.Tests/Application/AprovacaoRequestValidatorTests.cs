@@ -14,7 +14,7 @@ namespace ProcessadorAssincrono.Tests.Application
         }
 
         [Fact]
-        public void Deve_Retornar_Erro_Quando_Pep_Estiver_Vazio()
+        public void Deve_Retornar_Erro_Quando_Projeto_Estiver_Vazio()
         {
             // Arrange
             var request = new AprovacaoRequest(

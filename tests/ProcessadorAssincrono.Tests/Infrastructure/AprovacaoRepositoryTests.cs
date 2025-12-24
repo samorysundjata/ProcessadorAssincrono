@@ -18,7 +18,7 @@ namespace ProcessadorAssincrono.Tests.Infrastructure
             var repo = new AprovacaoRepository(mockConnection.Object, null, mockLogger.Object);
 
             // Act & Assert
-            await Should.ThrowAsync<ArgumentNullException>(() => repo.InserirAsync(null));
+            await Should.ThrowAsync<ArgumentNullException>(() => repo.InserirAsync((Aprovacao)null!));
         }
 
         [Fact(DisplayName = "ObterPorId deve retornar entidade simulada")]
