@@ -18,7 +18,7 @@ namespace ProcessadorAssincrono.Tests.Application.Validators
 
             // Assert
             result.IsValid.ShouldBeFalse();
-            result.Errors.ShouldContain(e => e.PropertyName == "Aprovacoes" && e.ErrorMessage.Contains("pelo menos uma"));
+            result.Errors.ShouldContain(e => e.PropertyName == "Aprovacoes" && e.ErrorMessage.Contains("válidos"));
         }
 
         [Fact(DisplayName = "Validação deve falhar quando Aprovacoes contiver Guid.Empty")]
