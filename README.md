@@ -68,7 +68,7 @@ Expõe o endpoint `api/solicitacoes/{'guid'}/aprovar` para enfileirar múltiplas
 
 ![Diagrama de Contexto](./out/docs/Context/Context.png)
 
-## Criação e configuração do SQL Server 20222
+## Criação e configuração do SQL Server 2022
 
 ### Crie um banco de dados via Docker
 
@@ -80,7 +80,7 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=SenhaForte123!" \
 ```
 
 SA_PASSWORD: Defina uma senha forte para o usuário sa. (Pode utilizar o SenhaForte123! que é um padrão)
--p 1433:1433: Expõe a porta padrão do SQL Server.
+Expõe a porta padrão do SQL Server: localhost,1433
 
 ### Abra com o SQL Server Management Studio e crie o banco `Processador`
 
