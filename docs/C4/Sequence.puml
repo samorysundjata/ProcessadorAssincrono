@@ -1,0 +1,44 @@
+@startuml ProcessadorQueueService Sequence
+actor Client
+participant "IProcessadorQueue" as Queue
+participant "Channel<Aprovacao>" as Channel
+participant "BackgroundService" as BG
+participant "IAprovacaoService" as Service
+participant "Logger" as Log
+
+Client ->> Queue: EnfileirarAsync(id, projeto, comentários, data)
+activate Queue
+Queue ->> Channel: WriteAsync(Aprovacao)
+activate Channel
+Channel -->> Queue: 
+deactivate Channel
+Queue ->> Log: LogInformation("Enfileirado")
+Queue -->> Client: 
+deactivate Queue
+
+BG ->> BG: ExecuteAsync(stoppingToken)
+activate BG
+BG ->> Channel: WaitToReadAsync(stoppingToken)
+activate Channel
+Channel -->> BG: true
+deactivate Channel
+
+BG ->> Channel: ReadAsync(stoppingToken)
+activate Channel
+Channel -->> BG: Aprovacao
+deactivate Channel
+
+BG ->> Log: LogInformation("Lendo solicitação")
+
+BG ->> BG: retryPolicy.ExecuteAsync()
+BG ->> Service: AprovarAsync(id, projeto, comentários, data)
+activate Service
+Service -->> BG: 
+deactivate Service
+
+BG ->> Log: LogInformation("Processado")
+BG ->> Log: LogInformation("Mensagem processada com sucesso")
+
+deactivate BG
+
+@enduml
