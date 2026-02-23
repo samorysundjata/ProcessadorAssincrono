@@ -62,11 +62,19 @@ Expõe o endpoint `api/solicitacoes/{'guid'}/aprovar` para enfileirar múltiplas
 
 ---
 
+## Collection
+
+No diretório docs/Collectons há uma collection .json para testar a aplicação via Insomnia.
+
 ## Arquitetura
 
 ### Contexto
 
 ![Diagrama de Contexto](./out/docs/Context/Context.png)
+
+### Sequência do BackgroundService
+
+![Diagrama de Sequencia](./out/docs/C4/Sequence/ProcessadorQueueService%20Sequence.png)
 
 ## Criação e configuração do SQL Server 2022
 
