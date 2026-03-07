@@ -39,26 +39,25 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapPut("/api/solicitacoes/{id:guid}/inserir", async (
-    IAprovacaoService aprovacaoService,
     Guid id,
-    ILogger<Program> logger,
+    AprovacaoRequest request,
+    IValidator<AprovacaoRequest> validator,
+    IAprovacaoService aprovacaoService,
     CancellationToken cancellationToken) =>
 {
+    var validationResult = await validator.ValidateAsync(request, cancellationToken);
+    if (!validationResult.IsValid)
+        return Results.BadRequest(new { erros = validationResult.Errors.Select(e => e.ErrorMessage) });
+
     var aprovacao = new Aprovacao
     {
         Id = id,
-        Projeto = "123456",
-        ComentariosAdicionais = "Comentário de teste",
-        DataAprovacao = DateTime.UtcNow
+        Projeto = request.Projeto,
+        ComentariosAdicionais = request.ComentariosAdicionais,
+        DataAprovacao = request.DataAprovacao
     };
-
     await aprovacaoService.InserirAsync(aprovacao);
-    logger.LogInformation("Solicitação {Id} inserida com sucesso.", id);
-
-    return Results.Created($"/api/solicitacoes/{id}", new
-    {
-        mensagem = $"Solicitação {id} inserida com sucesso."
-    });
+    return Results.Created($"/api/solicitacoes/{id}", new { mensagem = $"Solicitação {id} inserida com sucesso." });
 });
 
 app.MapPut("/api/solicitacoes/{id:guid}/aprovar", async (

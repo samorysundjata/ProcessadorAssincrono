@@ -26,7 +26,7 @@ namespace ProcessadorAssincrono.Infrastructure.BackgroundServices
         {
             var mensagem = new Aprovacao { Id = id, Projeto = projeto, ComentariosAdicionais = comentariosAdicionais, DataAprovacao = dataAprovacao };
             await _channel.Writer.WriteAsync(mensagem);
-            _logger.LogInformation($"Enfileirado: {id}");
+            _logger.LogInformation("Enfileirado: {AprovacaoId}", id);
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -34,12 +34,12 @@ namespace ProcessadorAssincrono.Infrastructure.BackgroundServices
             var retryPolicy = Policy
                 .Handle<Exception>()
                 .WaitAndRetryAsync(3, attempt => TimeSpan.FromSeconds(attempt),
-                    (ex, ts) => _logger.LogWarning($"Erro: {ex.Message}. Tentando novamente..."));
+                    (ex, ts) => _logger.LogWarning(ex, "Erro ao processar. Tentando novamente..."));
 
             while (await _channel.Reader.WaitToReadAsync(stoppingToken))
             {
                 var mensagem = await _channel.Reader.ReadAsync(stoppingToken);
-                _logger.LogInformation($"Lendo a solicitação: {mensagem.Id}");
+                _logger.LogInformation("Lendo a solicitação: {AprovacaoId}", mensagem.Id);
 
                 await retryPolicy.ExecuteAsync(async () =>
                 {
@@ -49,11 +49,11 @@ namespace ProcessadorAssincrono.Infrastructure.BackgroundServices
                         var service = scope.ServiceProvider.GetRequiredService<IAprovacaoService>();
 
                         await service.AprovarAsync(mensagem.Id, mensagem.Projeto, mensagem.ComentariosAdicionais, mensagem.DataAprovacao);
-                        _logger.LogInformation($"Processado a mensagem: {mensagem.Id}");
+                        _logger.LogInformation("Processado a mensagem: {AprovacaoId}", mensagem.Id);
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError($"Falha ao processar a mensagem {mensagem.Id}: {ex.Message}");
+                        _logger.LogError(ex, "Falha ao processar a mensagem {AprovacaoId}", mensagem.Id);
                         throw;
                     }
                 });
