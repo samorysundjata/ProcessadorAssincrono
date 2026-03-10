@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using ProcessadorAssincrono.Application.Interfaces;
 using ProcessadorAssincrono.Infrastructure.Interfaces;
 using System.Data;
 
@@ -15,7 +16,6 @@ namespace ProcessadorAssincrono.Infrastructure.Persistence
         public UnitOfWork(IDbConnectionFactory connectionFactory, ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<UnitOfWork>();
-
             _connection = connectionFactory.CreateConnection();
             _connection.Open();
             _transaction = _connection.BeginTransaction();
@@ -23,28 +23,12 @@ namespace ProcessadorAssincrono.Infrastructure.Persistence
             Aprovacoes = new AprovacaoRepository(_connection, _transaction, loggerFactory.CreateLogger<AprovacaoRepository>());
         }
 
-        public async Task CommitAsync()
+        public Task CommitAsync()
         {
-            try
-            {
-                _transaction?.Commit();
-                _logger.LogInformation("[{Hora}] Transação confirmada com sucesso.", DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                _transaction?.Rollback();
-                _logger.LogError(ex, "[{Hora}] Erro ao confirmar transação. Realizado rollback.", DateTime.Now);
-                throw;
-            }
-            finally
-            {
-                _transaction?.Dispose();
-                _connection?.Close();
-                _connection?.Dispose();
-                _logger.LogInformation("[{Hora}] Conexão com banco de dados encerrada após commit.", DateTime.Now);
-            }
-
-            await Task.CompletedTask;
+            try { _transaction?.Commit(); _logger.LogInformation("[{Hora}] Transação confirmada com sucesso.", DateTime.Now); }
+            catch { _transaction?.Rollback(); _logger.LogError("[{Hora}] Erro ao confirmar transação. Realizado rollback.", DateTime.Now); throw; }
+            finally { _transaction?.Dispose(); _connection?.Close(); _connection?.Dispose(); _logger.LogInformation("[{Hora}] Conexão com banco de dados encerrada após commit.", DateTime.Now);  }
+            return Task.CompletedTask;
         }
 
         public async Task RollbackAsync()
@@ -65,10 +49,14 @@ namespace ProcessadorAssincrono.Infrastructure.Persistence
             await Task.CompletedTask;
         }
 
+        private bool _disposed;
         public void Dispose()
         {
+            if (_disposed) return;
             _transaction?.Dispose();
             _connection?.Dispose();
+            _disposed = true;
+            GC.SuppressFinalize(this);
         }
     }
 }

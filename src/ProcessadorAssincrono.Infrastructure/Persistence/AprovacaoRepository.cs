@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Logging;
 using ProcessadorAssincrono.Domain.Entities;
-using ProcessadorAssincrono.Infrastructure.Interfaces;
+using ProcessadorAssincrono.Application.Interfaces;
 using System.Data;
 
 namespace ProcessadorAssincrono.Infrastructure.Persistence
@@ -26,7 +26,7 @@ namespace ProcessadorAssincrono.Infrastructure.Persistence
             if (entity.Id == Guid.Empty)
                 entity.Id = Guid.NewGuid();
 
-            const string sql = "INSERT INTO Aprovacoes (Id, Pep, ComentariosAdicionais, DataAprovacao) VALUES (@Id, @Pep, @ComentariosAdicionais, @DataAprovacao);";
+            const string sql = "INSERT INTO Aprovacoes (Id, Projeto, ComentariosAdicionais, DataAprovacao) VALUES (@Id, @Projeto, @ComentariosAdicionais, @DataAprovacao);";
 
             return _connection.ExecuteAsync(sql, new
             {
@@ -39,18 +39,9 @@ namespace ProcessadorAssincrono.Infrastructure.Persistence
 
         public async Task<Aprovacao?> ObterPorId(Guid id)
         {
-            const string sql = "SELECT Id, Pep, ComentariosAdicionais, DataAprovacao FROM Aprovacoes WHERE Id = @Id;";
+            const string sql = "SELECT Id, Projeto, ComentariosAdicionais, DataAprovacao FROM Aprovacoes WHERE Id = @Id;";
             try
             {
-                if (_connection is System.Data.Common.DbConnection dbConn && dbConn.State != ConnectionState.Open)
-                {
-                    await dbConn.OpenAsync();
-                }
-                else if (_connection.State != ConnectionState.Open)
-                {
-                    _connection.Open();
-                }
-
                 return await _connection.QuerySingleOrDefaultAsync<Aprovacao>(sql, new { Id = id }, _transaction);
             }
             catch (Exception ex)
@@ -62,18 +53,9 @@ namespace ProcessadorAssincrono.Infrastructure.Persistence
 
         public async Task<IEnumerable<Aprovacao>> ObterTodosAsync()
         {
-            const string sql = "SELECT Id, Pep, ComentariosAdicionais, DataAprovacao FROM Aprovacoes;";
+            const string sql = "SELECT Id, Projeto, ComentariosAdicionais, DataAprovacao FROM Aprovacoes;";
             try
             {
-                if (_connection is System.Data.Common.DbConnection dbConn && dbConn.State != ConnectionState.Open)
-                {
-                    await dbConn.OpenAsync();
-                }
-                else if (_connection.State != ConnectionState.Open)
-                {
-                    _connection.Open();
-                }
-
                 return await _connection.QueryAsync<Aprovacao>(sql, transaction: _transaction);
             }
             catch (Exception ex)

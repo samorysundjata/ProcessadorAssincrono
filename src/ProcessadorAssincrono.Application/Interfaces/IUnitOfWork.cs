@@ -1,4 +1,4 @@
-﻿namespace ProcessadorAssincrono.Infrastructure.Interfaces
+﻿namespace ProcessadorAssincrono.Application.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
