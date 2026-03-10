@@ -1,6 +1,6 @@
 ﻿using ProcessadorAssincrono.Domain.Entities;
 
-namespace ProcessadorAssincrono.Infrastructure.Interfaces
+namespace ProcessadorAssincrono.Application.Interfaces
 {
     public interface IAprovacaoRepository : IRepository<Aprovacao>
     {

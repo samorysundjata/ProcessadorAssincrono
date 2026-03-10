@@ -10,7 +10,7 @@ namespace ProcessadorAssincrono.Application.Validators
             RuleFor(x => x.Projeto).NotEmpty().WithMessage("O campo Projeto é obrigatório.");
             RuleFor(x => x.ComentariosAdicionais).MaximumLength(500)
                 .WithMessage("Comentários adicionais não podem exceder 500 caracteres.");
-            RuleFor(x => x.DataAprovacao).NotEmpty().WithMessage("O campo Data de Aprovação é obrigatório.");
+            RuleFor(x => x.DataAprovacao).GreaterThan(DateTime.MinValue).WithMessage("O campo Data de Aprovação é obrigatório.");
         }
     }
 }

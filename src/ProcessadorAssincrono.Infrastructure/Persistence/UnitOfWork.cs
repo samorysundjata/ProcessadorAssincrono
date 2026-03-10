@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using ProcessadorAssincrono.Application.Interfaces;
 using ProcessadorAssincrono.Infrastructure.Interfaces;
 using System.Data;
 
@@ -48,10 +49,14 @@ namespace ProcessadorAssincrono.Infrastructure.Persistence
             await Task.CompletedTask;
         }
 
+        private bool _disposed;
         public void Dispose()
         {
+            if (_disposed) return;
             _transaction?.Dispose();
             _connection?.Dispose();
+            _disposed = true;
+            GC.SuppressFinalize(this);
         }
     }
 }

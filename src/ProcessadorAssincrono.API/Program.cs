@@ -67,7 +67,7 @@ app.MapPut("/api/solicitacoes/{id:guid}/aprovar", async (
     ILogger<Program> logger,
     CancellationToken cancellationToken) =>
 {
-    await queue.EnfileirarAsync(id, request.Projeto, request.ComentariosAdicionais, DateTime.UtcNow);
+    await queue.EnfileirarAsync(id, request.Projeto, request.ComentariosAdicionais, request.DataAprovacao);
     logger.LogInformation("Solicitação {Id} enfileirada para aprovação.", id);
 
     return Results.Accepted($"/api/solicitacoes/{id}/aprovar", new

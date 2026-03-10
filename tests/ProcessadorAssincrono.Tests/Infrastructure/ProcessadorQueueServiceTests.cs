@@ -15,6 +15,7 @@ namespace ProcessadorAssincrono.Tests.Infrastructure
         private readonly Mock<ILogger<ProcessadorQueueService>> _loggerMock;
         private readonly Mock<IAprovacaoService> _aprovacaoServiceMock;
         private readonly ProcessadorQueueService _service;
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         public ProcessadorQueueServiceTests()
         {
@@ -22,6 +23,7 @@ namespace ProcessadorAssincrono.Tests.Infrastructure
             _serviceProviderMock = new Mock<IServiceProvider>();
             _loggerMock = new Mock<ILogger<ProcessadorQueueService>>();
             _aprovacaoServiceMock = new Mock<IAprovacaoService>();
+            _cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(5)); 
 
             var scopeMock = new Mock<IServiceScope>();
             var scopeFactoryMock = new Mock<IServiceScopeFactory>();
@@ -38,7 +40,7 @@ namespace ProcessadorAssincrono.Tests.Infrastructure
             _serviceProviderMock.Setup(sp => sp.GetService(typeof(IServiceScopeFactory)))
                                  .Returns(scopeFactoryMock.Object);
 
-            _service = new ProcessadorQueueService(_channel, _serviceProviderMock.Object, _loggerMock.Object);
+            _service = new ProcessadorQueueService(_channel, _serviceProviderMock.Object, _loggerMock.Object, _cancellationTokenSource.Token);
         }
 
         [Fact]

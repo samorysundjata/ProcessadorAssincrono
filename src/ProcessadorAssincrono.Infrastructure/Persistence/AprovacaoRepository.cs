@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Logging;
 using ProcessadorAssincrono.Domain.Entities;
-using ProcessadorAssincrono.Infrastructure.Interfaces;
+using ProcessadorAssincrono.Application.Interfaces;
 using System.Data;
 
 namespace ProcessadorAssincrono.Infrastructure.Persistence
@@ -42,15 +42,6 @@ namespace ProcessadorAssincrono.Infrastructure.Persistence
             const string sql = "SELECT Id, Projeto, ComentariosAdicionais, DataAprovacao FROM Aprovacoes WHERE Id = @Id;";
             try
             {
-                if (_connection is System.Data.Common.DbConnection dbConn && dbConn.State != ConnectionState.Open)
-                {
-                    await dbConn.OpenAsync();
-                }
-                else if (_connection.State != ConnectionState.Open)
-                {
-                    _connection.Open();
-                }
-
                 return await _connection.QuerySingleOrDefaultAsync<Aprovacao>(sql, new { Id = id }, _transaction);
             }
             catch (Exception ex)
@@ -62,18 +53,9 @@ namespace ProcessadorAssincrono.Infrastructure.Persistence
 
         public async Task<IEnumerable<Aprovacao>> ObterTodosAsync()
         {
-            const string sql = "SELECT Id, Pep, ComentariosAdicionais, DataAprovacao FROM Aprovacoes;";
+            const string sql = "SELECT Id, Projeto, ComentariosAdicionais, DataAprovacao FROM Aprovacoes;";
             try
             {
-                if (_connection is System.Data.Common.DbConnection dbConn && dbConn.State != ConnectionState.Open)
-                {
-                    await dbConn.OpenAsync();
-                }
-                else if (_connection.State != ConnectionState.Open)
-                {
-                    _connection.Open();
-                }
-
                 return await _connection.QueryAsync<Aprovacao>(sql, transaction: _transaction);
             }
             catch (Exception ex)

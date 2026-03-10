@@ -13,19 +13,21 @@ namespace ProcessadorAssincrono.Infrastructure.BackgroundServices
         private readonly Channel<Aprovacao> _channel;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<ProcessadorQueueService> _logger;
+        private readonly CancellationToken _cancellationToken;
 
 
-        public ProcessadorQueueService(Channel<Aprovacao> channel, IServiceProvider serviceProvider, ILogger<ProcessadorQueueService> logger)
+        public ProcessadorQueueService(Channel<Aprovacao> channel, IServiceProvider serviceProvider, ILogger<ProcessadorQueueService> logger, CancellationToken cancellationToken)
         {
             _channel = channel;
             _serviceProvider = serviceProvider;
             _logger = logger;
+            _cancellationToken = cancellationToken;
         }
 
         public async Task EnfileirarAsync(Guid id, string projeto, string comentariosAdicionais, DateTime dataAprovacao)
         {
             var mensagem = new Aprovacao { Id = id, Projeto = projeto, ComentariosAdicionais = comentariosAdicionais, DataAprovacao = dataAprovacao };
-            await _channel.Writer.WriteAsync(mensagem);
+            await _channel.Writer.WriteAsync(mensagem, _cancellationToken);
             _logger.LogInformation("Enfileirado: {AprovacaoId}", id);
         }
 

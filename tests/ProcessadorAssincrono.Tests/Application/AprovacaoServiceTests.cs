@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
 using ProcessadorAssincrono.Domain.Entities;
-using ProcessadorAssincrono.Infrastructure.Interfaces;
+using ProcessadorAssincrono.Application.Interfaces;
 using ProcessadorAssincrono.Infrastructure.Services;
 using Shouldly;
 

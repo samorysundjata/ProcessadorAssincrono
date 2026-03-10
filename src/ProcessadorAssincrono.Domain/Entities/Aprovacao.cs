@@ -5,6 +5,6 @@
         public Guid Id { get; set; }
         public string Projeto { get; set; } = string.Empty;
         public string ComentariosAdicionais { get; set; } = string.Empty;
-        public DateTime DataAprovacao { get; set; } = DateTime.UtcNow;
+        public DateTime DataAprovacao { get; set; }
     }
 }
