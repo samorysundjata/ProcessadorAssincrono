@@ -30,6 +30,7 @@ namespace ProcessadorAssincrono.Infrastructure.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao aprovar {Id}", id);
+                await _uow.RollbackAsync();
                 throw;
             }
         }
