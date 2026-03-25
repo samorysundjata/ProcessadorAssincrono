@@ -1,0 +1,266 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: ProcessadorAssíncrono
+meta:
+  id: wrk_99a21fd9dc2e4e219e6609e88c24c6fe
+  created: 1762186566755
+  modified: 1762186566755
+  description: ""
+collection:
+  - url: https://localhost:7082/aprovar-em-lote
+    name: Aprovar em Lote - 30 GUIDs
+    meta:
+      id: req_a0da41ee90af46f9a6250284aa8e4c3c
+      created: 1762187723071
+      modified: 1764101088737
+      isPrivate: false
+      description: ""
+      sortKey: -1762187723071
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"solicitacoes": [
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",		
+        		"{% faker 'guid' %}"
+        	]
+        }
+    headers:
+      - name: accept
+        value: "*/*"
+      - name: Content-Type
+        value: application/json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://localhost:7082/api/diarias/{% faker 'guid' %}/aprovar
+    name: :i{id}/aprovar
+    meta:
+      id: req_2fde6d55fe8942cd81bb25245d4b88e3
+      created: 1762779901029
+      modified: 1763730502088
+      isPrivate: false
+      description: ""
+      sortKey: -1762779901029
+    method: PUT
+    body:
+      mimeType: application/json
+      text: "{   \"pep\": \"{% faker 'randomInt' %}\",   \"comentariosAdicionais\":
+        \"{% faker 'randomFullName' %}\" }"
+    headers:
+      - name: accept
+        value: "*/*"
+      - name: Content-Type
+        value: application/json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://localhost:7082/api/diarias/da162738-44c0-44fb-9f7a-f665d01e9b7b/aprovar
+    name: :i{id}/inserir
+    meta:
+      id: req_9b26d513be7f4f36898d8deca8ea2927
+      created: 1763381996387
+      modified: 1763382001913
+      isPrivate: false
+      description: ""
+      sortKey: -1762779828607.5
+    method: POST
+    body:
+      mimeType: application/json
+      text: '{   "pep": "29747187175",   "comentariosAdicionais": "Cras urna sapien,
+        mollis sit amet fringilla id, malesuada et." }'
+    headers:
+      - name: accept
+        value: "*/*"
+      - name: Content-Type
+        value: application/json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://localhost:7082/aprovar-em-lote
+    name: Aprovar em Lote - 100 GUIDs
+    meta:
+      id: req_ab79e1c0d5fc428092a3a50d2f0364c5
+      created: 1764101100962
+      modified: 1764162853622
+      isPrivate: false
+      description: ""
+      sortKey: -1762187577142
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"solicitacoes": [
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}",
+        		"{% faker 'guid' %}"
+        	]
+        }
+    headers:
+      - name: accept
+        value: "*/*"
+      - name: Content-Type
+        value: application/json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_0c386d3c04e81d60dae06b9bb722d17c8c94f88a
+    created: 1762186566786
+    modified: 1762780037728
+environments:
+  name: Base Environment
+  meta:
+    id: env_0c386d3c04e81d60dae06b9bb722d17c8c94f88a
+    created: 1762186566778
+    modified: 1762780037748
+    isPrivate: false
