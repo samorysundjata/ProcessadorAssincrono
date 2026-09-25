@@ -1,6 +1,6 @@
 # Processador Assíncrono
 
-Este repositório implementa uma aplicação .NET 10 baseada em **Clean Architecture**, com foco em **processamento assíncrono em lote** utilizando `BackgroundService` e `Channel<Guid>`, com persistência no **SQL Server** via **Dapper**.
+Este repositório implementa uma aplicação .NET 10 baseada em **Clean Architecture**, com foco em **processamento assíncrono em lote** utilizando `BackgroundService` e `Channel<Aprovacao>`, com persistência no **SQL Server** via **Dapper**.
 
 ---
 
@@ -11,7 +11,7 @@ Este repositório implementa uma aplicação .NET 10 baseada em **Clean Architec
 [![Dapper](https://img.shields.io/badge/Dapper-Library-007ACC?style=flat-square)](https://github.com/DapperLib/Dapper)
 [![SQL Server](https://img.shields.io/badge/SQL%20Server-Server-CC2927?style=flat-square&logo=microsoftsqlserver&logoColor=white)](https://www.microsoft.com/sql-server)
 [![BackgroundService](https://img.shields.io/badge/BackgroundService-Hosted-0078D4?style=flat-square)](https://learn.microsoft.com/dotnet/core/extensions/background-services)
-[![Channel<Guid>](https://img.shields.io/badge/Channel-%3CGuid%3E-00ABA9?style=flat-square)](https://learn.microsoft.com/dotnet/standard/parallel-programming/channels)
+[![Channel<Aprovacao>](https://img.shields.io/badge/Channel-%3CAprovacao%3E-00ABA9?style=flat-square)](https://learn.microsoft.com/dotnet/standard/parallel-programming/channels)
 [![Minimal APIs](https://img.shields.io/badge/Minimal_APIs-.NET-512BD4?style=flat-square&logo=dotnet&logoColor=white)](https://learn.microsoft.com/aspnet/core/fundamentals/minimal-apis)
 [![xUnit](https://img.shields.io/badge/xUnit-Tests-512BD4?style=flat-square&logo=xunit&logoColor=white)](https://xunit.net/)
 [![Moq](https://img.shields.io/badge/Moq-Mocking-9B4F96?style=flat-square)](https://github.com/moq)
@@ -23,13 +23,17 @@ Este repositório implementa uma aplicação .NET 10 baseada em **Clean Architec
 
 ## Estrutura do Projeto
 
-```markdown
+```text
 ProcessadorAssincrono/
-├── ProcessadorAssincrono.API → Minimal APIs e configuração
-├── ProcessadorAssincrono.Application → Interfaces e contratos
-├── ProcessadorAssincrono.Domain → Entidades de negócio
-├── ProcessadorAssincrono.Infrastructure→ Implementações (Dapper, BackgroundService)
-├── ProcessadorAssincrono.Tests → Testes unitários com xUnit, Shoudly e Moq
+├── ProcessadorAssincrono.slnx
+├── global.json                          → SDK 10.0.112
+├── docker-compose.yml                   → SQL Server, criação do banco e API
+├── docker/init-db.sql                   → banco Processador e tabela Aprovacoes
+├── src/ProcessadorAssincrono.API        → Minimal APIs
+├── src/ProcessadorAssincrono.Application
+├── src/ProcessadorAssincrono.Domain
+├── src/ProcessadorAssincrono.Infrastructure
+└── tests/ProcessadorAssincrono.Tests    → xUnit, Shouldly e Moq
 ```
 
 ---
@@ -48,9 +52,9 @@ ProcessadorAssincrono/
 
 ## Componentes Principais
 
-### `BackgroundService` com `Channel<Guid>`
+### `BackgroundService` com `Channel<Aprovacao>`
 
-Permite enfileirar IDs de requisições para processamento em segundo plano, desacoplando a chamada HTTP da lógica de negócio.
+Enfileira solicitações para processamento em segundo plano, desacoplando a chamada HTTP da persistência.
 
 ### `AprovacaoService` com Dapper
 
@@ -58,13 +62,57 @@ Realiza a atualização da entidade `Aprovacao` no banco SQL Server, marcando co
 
 ### Minimal API
 
-Expõe o endpoint `api/solicitacoes/{'guid'}/aprovar` para enfileirar múltiplas requisições.
+| Método | Rota | Efeito |
+|---|---|---|
+| `PUT` | `/api/solicitacoes/{id}/inserir` | Grava a solicitação no SQL Server |
+| `PUT` | `/api/solicitacoes/{id}/aprovar` | Enfileira uma solicitação |
+| `POST` | `/aprovar-em-lote` | Enfileira várias solicitações |
 
 ---
 
+## Como executar
+
+O `global.json` fixa o SDK **10.0.112** com `rollForward: latestPatch`. Um SDK `10.0.4xx` instalado na máquina não atende esse pin.
+
+### Docker Compose
+
+Sobe o SQL Server, cria o banco `Processador` e a tabela `Aprovacoes`, e inicia a API.
+
+```bash
+docker compose up --build -d
+```
+
+- API e Swagger: [http://localhost:8080/swagger](http://localhost:8080/swagger)
+- SQL Server: `localhost,1433`, usuário `sa`, senha `SenhaForte123!`
+
+```bash
+docker compose down
+```
+
+O volume `sqlserver-data` preserva o banco entre as execuções. O script `docker/init-db.sql` só cria o banco e a tabela quando eles ainda não existem.
+
+### Na máquina local
+
+Com o SQL Server já acessível em `localhost,1433` (por exemplo, `docker compose up -d sqlserver db-init`):
+
+```powershell
+$env:PATH = "$env:LOCALAPPDATA\Microsoft\dotnet;" + $env:PATH
+dotnet run --project src/ProcessadorAssincrono.API --launch-profile http
+```
+
+Swagger local: [http://localhost:5085/swagger](http://localhost:5085/swagger).
+
+A connection string padrão está em `src/ProcessadorAssincrono.API/appsettings.json`. No Compose, a API usa o host `sqlserver` em vez de `localhost`.
+
+### Testes
+
+```bash
+dotnet test ProcessadorAssincrono.slnx
+```
+
 ## Collection
 
-No diretório docs/Collectons há uma collection .json para testar a aplicação via Insomnia.
+A collection do Insomnia está em `docs/Files/ProcessadorAssincrono_Insomnia_2025-12-12.yaml`.
 
 ## Arquitetura
 
@@ -76,27 +124,9 @@ No diretório docs/Collectons há uma collection .json para testar a aplicação
 
 ![Diagrama de Sequencia](./out/docs/C4/Sequence/ProcessadorQueueService%20Sequence.png)
 
-## Criação e configuração do SQL Server 2022
+## Banco de dados
 
-### Crie um banco de dados via Docker
-
-```bash
-docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=SenhaForte123!" \
--p 1433:1433 --name sqlserverdocker \
--v sqlvolume:/var/opt/mssql \
--d mcr.microsoft.com/mssql/server:2022-latest
-```
-
-SA_PASSWORD: Defina uma senha forte para o usuário sa. (Pode utilizar o SenhaForte123! que é um padrão)
-Expõe a porta padrão do SQL Server: localhost,1433
-
-### Abra com o SQL Server Management Studio e crie o banco `Processador`
-
-```sql
-CREATE DATABASE Processador;
-```
-
-### Crie a tabela Aprovacoes
+O Compose aplica `docker/init-db.sql`. O schema resultante é:
 
 ```sql
 CREATE TABLE Aprovacoes (
