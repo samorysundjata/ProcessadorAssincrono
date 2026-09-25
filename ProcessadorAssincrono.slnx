@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="src/ProcessadorAssincrono.API/ProcessadorAssincrono.API.csproj" />
+  <Project Path="src/ProcessadorAssincrono.Application/ProcessadorAssincrono.Application.csproj" />
+  <Project Path="src/ProcessadorAssincrono.Domain/ProcessadorAssincrono.Domain.csproj" />
+  <Project Path="src/ProcessadorAssincrono.Infrastructure/ProcessadorAssincrono.Infrastructure.csproj" />
+  <Project Path="tests/ProcessadorAssincrono.Tests/ProcessadorAssincrono.Tests.csproj" />
+</Solution>
