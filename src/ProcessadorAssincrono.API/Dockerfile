@@ -13,6 +13,9 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/ProcessadorAssincrono.API/ProcessadorAssincrono.API.csproj", "src/ProcessadorAssincrono.API/"]
+COPY ["src/ProcessadorAssincrono.Application/ProcessadorAssincrono.Application.csproj", "src/ProcessadorAssincrono.Application/"]
+COPY ["src/ProcessadorAssincrono.Domain/ProcessadorAssincrono.Domain.csproj", "src/ProcessadorAssincrono.Domain/"]
+COPY ["src/ProcessadorAssincrono.Infrastructure/ProcessadorAssincrono.Infrastructure.csproj", "src/ProcessadorAssincrono.Infrastructure/"]
 RUN dotnet restore "./src/ProcessadorAssincrono.API/ProcessadorAssincrono.API.csproj"
 COPY . .
 WORKDIR "/src/src/ProcessadorAssincrono.API"
