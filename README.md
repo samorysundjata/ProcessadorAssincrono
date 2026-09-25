@@ -1,13 +1,13 @@
 # Processador Assíncrono
 
-Este repositório implementa uma aplicação .NET 8 baseada em **Clean Architecture**, com foco em **processamento assíncrono em lote** utilizando `BackgroundService` e `Channel<Guid>`, com persistência no **SQL Server** via **Dapper**.
+Este repositório implementa uma aplicação .NET 10 baseada em **Clean Architecture**, com foco em **processamento assíncrono em lote** utilizando `BackgroundService` e `Channel<Guid>`, com persistência no **SQL Server** via **Dapper**.
 
 ---
 
 ### Badges
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/samoryfiotec/Fiotec.ProcessadorAssincrono?label=RepoSize&color=brown&style=flat&suffix=KB)
-[![.NET 8](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat-square&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![.NET 10](https://img.shields.io/badge/.NET-10.0-512BD4?style=flat-square&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 [![Dapper](https://img.shields.io/badge/Dapper-Library-007ACC?style=flat-square)](https://github.com/DapperLib/Dapper)
 [![SQL Server](https://img.shields.io/badge/SQL%20Server-Server-CC2927?style=flat-square&logo=microsoftsqlserver&logoColor=white)](https://www.microsoft.com/sql-server)
 [![BackgroundService](https://img.shields.io/badge/BackgroundService-Hosted-0078D4?style=flat-square)](https://learn.microsoft.com/dotnet/core/extensions/background-services)
@@ -36,7 +36,7 @@ ProcessadorAssincrono/
 
 ## Tecnologias Utilizadas
 
-- .NET 8
+- .NET 10
 - Dapper
 - SQL Server
 - BackgroundService
